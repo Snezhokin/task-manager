@@ -1,7 +1,7 @@
 from sqlalchemy import String, Column,Integer,Text,ForeignKey,DateTime,Boolean
 from datetime import datetime
 from sqlalchemy.orm import relationship
-from database import Base
+from app.database import Base
 
 class User(Base):
     __tablename__="users"
@@ -24,6 +24,6 @@ class Task(Base):
     priority=Column(Integer,default=2)
     due_date=Column(DateTime,nullable=True)
     created_at=Column(DateTime,default=datetime.utcnow)
-    user_id=Column(Integer,ForeignKey("user.id"),nullable=False)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
 
     user=relationship("User",back_populates="tasks")

@@ -22,7 +22,7 @@ def register(user:schemas.UserCreate, db:Session=Depends(database.get_db)):
     return db_user
 
 @router.post("/login", response_model=schemas.Token)
-def login(form_data:OAuth2PasswordRequestForm,db:Session=Depends(database.get_db)):
+def login(form_data:OAuth2PasswordRequestForm=Depends(),db:Session=Depends(database.get_db)):
     user=auth.authenticate_user(db, form_data.username,form_data.password)
     if not user:
         raise HTTPException(
